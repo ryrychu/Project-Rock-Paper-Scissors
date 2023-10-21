@@ -9,8 +9,6 @@ const btnIDs = ["rockBtn", "paperBtn", "scissorBtn"];
 
 function playRound(playerSelection, computerSelection) {
     if(playerSelection === computerSelection){
-        playerScore += 1;
-        computerScore +=1;
         return "It's a tie";
     } else if(outcomes[playerSelection] === computerSelection){
         playerScore += 1;
@@ -40,17 +38,36 @@ gameChoices.addEventListener('click', (event) => {
             console.log(numberofrounds);
             playerScores.textContent = `Player: ${playerScore}`;
             computerScores.textContent = `Computer: ${computerScore}`;
-            const winMessage = playerScore === 3 ? "Player Wins" : "Computer Wins";
-            scoreEnd.textContent = winMessage;
-            computerScores.insertAdjacentElement('afterend', scoreEnd);
+            
             console.log(`Player Score: ${playerScore}`);
             console.log(`Computer Score: ${computerScore}`);
-                if (playerScore === 3 || computerScore === 3) {
+
+                if((playerScore > computerScore ) && numberofrounds === 5){
                     disableBtn();
                     roundEnd();
-                    console.log(playerScore === 3 ? "Player Wins" : "Computer Wins");
-                }
-        } 
+                    const winMessage = "PLAYER WINS";
+                    scoreEnd.textContent = winMessage;
+                    computerScores.insertAdjacentElement('afterend', scoreEnd);
+                } else if ((playerScore < computerScore ) && numberofrounds === 5){
+                    disableBtn();
+                    roundEnd();
+                    const winMessage = "COMPUTER WINS";
+                    scoreEnd.textContent = winMessage;
+                    computerScores.insertAdjacentElement('afterend', scoreEnd);
+                } else if ((playerScore === computerScore ) && numberofrounds === 5){
+                    disableBtn();
+                    roundEnd();
+                    const winMessage = "ITS A TIE";
+                    scoreEnd.textContent = winMessage;
+                    computerScores.insertAdjacentElement('afterend', scoreEnd);
+                } else if (playerScore === 3 || computerScore === 3) {
+                    disableBtn();
+                    roundEnd();
+                    const winMessage = playerScore === 3 ? "Player Wins" : "Computer Wins";
+                    scoreEnd.textContent = winMessage;
+                    computerScores.insertAdjacentElement('afterend', scoreEnd);
+                } 
+        }
     }  
     
 });
@@ -64,12 +81,12 @@ function getComputerChoice (){
 const gameEnd = document.createElement("h2");
 const restartBtn = document.createElement("button");
 function roundEnd(){
-    if(numberofrounds >= 5){
+    
         gameEnd.textContent = "GAME END"
         gameChoices.appendChild(gameEnd);
         const restartBtn = restartGame();
         restart.appendChild(restartBtn);
-    } 
+    
 }
 
 function toggleBtnState(disable) {
@@ -96,7 +113,13 @@ function restartGame(){
         enableBtn();
         restartBtn.remove(); 
         gameEnd.remove();
+        scoreEnd.remove();
+        resultDisplay.textContent = "";
         numberofrounds = 0;  
+        playerScore = 0;
+        computerScore = 0;
+        playerScores.textContent = `Player: ${playerScore}`;
+        computerScores.textContent = `Computer: ${computerScore}`;
         roundsPlayed.textContent = `ROUND:`
         console.log(numberofrounds);
     });
@@ -106,3 +129,4 @@ function restartGame(){
     return restartBtn;
    
 }
+

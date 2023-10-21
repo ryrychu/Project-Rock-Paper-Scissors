@@ -1,0 +1,22 @@
+*{
+    font-family: 'Rubik', sans-serif;
+    box-sizing: border-box;
+
+    margin: 0;
+}
+html{
+    background: #F9F5FF;
+}
+
+nav{
+    display: flex;
+    justify-content: center;    
+    padding: 50px 112px;
+    background: #F3EBFF;
+    color: #28262c;
+    font-size: 40px;
+}
+
+button img{
+    height: 100px;
+}
